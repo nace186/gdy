@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('Update') %> <%= __('Expense') %></title>
+    <% include ../partials/header %>
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('Update') + ' ' + __('Expense')}) %>
+      <div id="page-wrapper"  style="padding-top: 15px;">
+            
+        <div class="row">
+          <div class="col-md-7 col-md-offset-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                     
+              </div>
+              <!-- /.panel-heading -->
+              <div class="panel-body">
+                <form role="form" action="/expense/update/<%= row.id %>" id="expense" method="post">
+                                
+                  <table class="table table-hover" id="transTable">
+                    <tr>
+                      <td style="text-align: right;">
+                        <label><%= __('Expense') %> <%=  __('Type') %> : </label>
+                      </td>
+                      <td style="text-align: right;">
+                        <select class="form-control" name="type">
+                        <% for ( var i = 0; i < type.length; i++ ) {console.log(row); %>
+                                              
+                          <option value="<%= type[i].id %>" 
+                          <% if(type[i].id = row.expenseType) { %>
+                            selected="selected"
+                          <% }%>
+                          >
+                          <% if (user.lang == 'en') { %>
+                            <%=type[i].nameEn %>
+                          <% } %>
+                          <% if (user.lang == 'cn') { %>
+                            <%=type[i].nameCn %>
+                          <% } %>
+                          <% if (user.lang == 'vn') { %>
+                            <%=type[i].nameVn %>
+                          <% } %>
+
+                          </option>
+                          <% } %>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;">
+                        <label><%= __('Reference') %> <%= __('Id') %> : </label> 
+                      </td>
+                      <td>
+                        <input class="form-control" name="referenceId" value="<%= row.referenceId %>" type="text" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;">
+                        <label><%= __('Value') %>  :</label>                                                
+                      </td>
+                      <td>
+                        <input class="form-control" name="value" value="<%= row.value %>" type="number" step="1" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;"><label><%= __('Note') %> : </label></td>
+                      <td><textarea  class="form-control" name="note" form="expense" style="width:90%;"><%= row.note %></textarea></td>
+                    </tr>                                    
+                  </table>
+                  <input type="submit" class="btn btn-lg btn-success btn-block" value="<%= __('Submit') %>"/>
+                </form>
+                                                
+              </div>
+            </div>
+          </div>
+        </div>            <!-- /.row -->
+       
+      </div>        <!-- /#page-wrapper -->
+    </div>    <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+
+  </body>
+</html>

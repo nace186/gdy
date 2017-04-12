@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('Update') %> <%= __('Customer') %></title>
+    <% include ../partials/header %>
+
+		<style>
+			.popover {
+  			max-width: 600px;
+  			width: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('Update') + ' ' + __('Customer')}) %>
+      <div id="page-wrapper"  style="padding-top: 5px;">
+            
+        <div class="row">
+        	<div class="col-lg-12">
+          	<div class="panel panel-default">
+              <div class="panel-heading">
+                           
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="customerTable">
+                  <thead>
+                    <tr>
+                      <th><%= __('MS') %> </th>
+                      <th><%= __('Code') %> </th>
+                      <th><%= __('Name') %> </th>
+                      <th><%= __('Admin') %> </th>
+                      <th><%= __('Detail') %> </th>
+                      <th><%= __('Transport') %> <%= __('Detail') %></th>                                            
+                      <th><%= __('Last Update') %></th>
+                      <th><%= __('Action') %></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+            <!-- /.row -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-default">
+
+              <div class="panel-body">
+                <h2><%= __('Add') %> <%= __('Customer') %></h2>
+                <form role="form" action="/customer/add" method="post">
+
+                  <table class="table table-hover" id="custTable">
+                    <tr>
+                   		<td>
+	                  		<div class="form-group form-inline">
+	                        <label><%= __('MS') %> :</label>
+	                        <input class="form-control" placeholder="<%= __('Code') %>" name="ms" type="text" autofocus>  
+	                      </div>
+                   		</td>
+                   		<td>
+	                   		<div class="form-group form-inline">
+	                        <label><%= __('Code') %> :</label>
+	                        <input class="form-control" placeholder="<%= __('Code') %>" name="code" type="text" autofocus>
+	                      </div>
+                    	</td>
+                      <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Admin') %> :</label>
+                          <input class="form-control" placeholder="<%= __('Admin') %>" name="admin"  type="text" >
+                      	</div>  
+                      </td>
+                   	</tr>
+                   	<tr>
+                   		<td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Name') %> :</label>
+                          <input class="form-control" placeholder="<%= __('Name') %>" name="name" type="text" autofocus>  
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('ShortHand') %> :</label>
+                          <input class="form-control" placeholder="<%= __('ShortHand') %>" name="shortHand" type="text" autofocus>
+                        </div>
+                      </td>
+                   		<td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Contact') %> :</label>
+                          <input class="form-control" placeholder="<%= __('Contact') %>" name="contact"  type="text" >
+                        </div>  
+                      </td>
+                   	</tr>
+                   	<tr>
+                  		<td colspan="3">
+                     		<div class="form-group form-inline">
+                          <label><%= __('Address') %> :</label>
+                          <input class="form-control" style="width:80%;" placeholder="<%= __('Address') %>" name="address" type="text" autofocus >
+                        </div>
+                   		</td>                              		
+                   	</tr>
+                   	<tr>
+                   		<td>
+                   		  <div class="form-group form-inline">
+                          <label><%= __('Area') %> :</label>
+                          <input class="form-control" placeholder="<%= __('Area') %>" name="area"  type="text" >
+                        </div>
+                  		</td>                              		
+   	              		<td>
+                   		  <div class="form-group form-inline">
+                          <label><%= __('City') %> :</label>
+                          <input class="form-control" placeholder="<%= __('City') %>" name="city"  type="text" >
+                        </div>
+                   		</td>
+                   		<td>
+                   			<div class="form-group form-inline">
+                          <label><%= __('Phone') %> :</label>
+                          <input class="form-control" placeholder="<%= __('Phone') %>" name="phone"  type="text" >
+                        </div>
+                   		</td>
+                   	</tr>
+                    <tr>
+                      <td>
+    	                  <div class="form-group form-inline">
+                          <label><%= __('Transport') %> :</label>
+                          <input class="form-control" placeholder="<%= __('Transport') %>" name="transport"  type="text" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Inbound') %> <%= __('Time') %> :</label>
+                          <input class="form-control" name="inboundTime"  type="text" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Outbound') %>  <%= __('Time') %> :</label>
+                          <input class="form-control" name="outboundTime"  type="text" >
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div class="form-group form-inline">
+                          <label><%= __('Transport') %> <%= __('Address') %> :</label>
+                          <input class="form-control" style="width:80%;" name="transportAddress" type="text" autofocus >
+                        </div>
+                      </td>                                 
+                    </tr>
+                    <tr>
+    	                <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Transport') %>  <%= __('Phone') %> :</label>
+                          <input class="form-control" name="transportPhone"  type="text" >
+                        </div>
+                      </td>
+                      <td colspan="2">
+                        <div class="form-group form-inline">
+                          <label><%= __('Remarks') %>:</label>
+                          <input class="form-control" name="remarks"  type="text" >
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Remitter') %>:</label>
+                          <input class="form-control" name="remitter"  type="text" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group form-inline">
+                          <label><%= __('Effective') %>:</label>
+                          <input class="form-control" name="effective" value="0" type="number" step="0.01" >
+                        </div>
+                      </td>
+                      <td>                                
+                      </td>
+                              
+                    </tr>
+                  </table>
+                           
+
+                  <input type="submit" class="btn btn-lg btn-success btn-block" value="<%= __('Add') %> <%= __('Customer') %>"/>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+            <!-- /.row -->
+      </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+
+    <script>
+
+/*
+ <tr>
+                                            <th><%= __('MS') %> </th>
+                                            <th><%= __('Code') %> </th>
+                                            <th><%= __('Name') %> </th>
+                                            <th><%= __('Admin') %> </th>
+                                            <th><%= __('Detail') %> </th>
+                                            <th><%= __('Transport') %> <%= __('Detail') %></th>                                            
+                                            <th><%= __('Last Update') %></th>
+                                            <th><%= __('Modify') %></th>
+                                            <th><%= __('Delete') %></th> 
+                                        </tr>
+*/
+      $(document).ready(function () 
+      {
+        var table = $('#customerTable').DataTable({
+              "lengthMenu": [
+                  [5, 10, 25, 50, -1],
+                  [5, 10, 25, 50, "All"]
+                ],
+              <% include ../partials/datatables_lang %>,            
+               "ajax": {
+                  "url": '/customer/getCustomers',
+                  "dataSrc": function (json) {                    
+                     return json;
+                  }
+               },
+               bAutoWidth: false ,
+               columns: [
+                  { data: 'ms'},
+                  { data: 'code' },
+                  { data: 'name' },
+                  { data: 'admin' },
+                  {
+                    "targets": -1,
+                    "render": function ( data, type, full, meta ) {
+
+                      var content = "<%= __('ShortHand') %> : "+full.shortHand +" <BR/>\
+                                     <%= __('Address') %> : "+full.address +" <BR/>  \
+                                     <%= __('Area') %> : "+full.area +" <BR/>  \
+                                     <%= __('City') %> : "+full.city +" <BR/>  \
+                                     <%= __('Phone') %> : "+full.phone +" <BR/>  \
+                                     <%= __('Contact') %> : "+full.contact +" <BR/>  \
+                      ";
+                       var data2 = '<button data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" class="btn btn-primary btn-xs detailBtn" title="Detail" data-content="' +content +'"><%= __("Detail") %></button>';
+                        return data2;
+                    }
+                  },
+                  {
+                    "targets": -1,
+                    "render": function ( data, type, full, meta ) {
+
+                      var content = "<%= __('Transport') %> : "+full.transport +" <BR/>\
+                                     <%= __('Address') %> : "+full.transportAddress +" <BR/>  \
+                                     <%= __('Phone') %> : "+full.transportPhone +" <BR/>  \
+                                     <%= __('Inbound') %> <%= __('Time') %> : "+full.inboundTime +" <BR/>  \
+                                     <%= __('Outbound') %> <%= __('Time') %> : "+full.outboundTime +" <BR/>";
+                       var data2 = '<button data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" class="btn btn-primary btn-xs detailBtn" title="Detail" data-content="' +content +'"><%= __("Detail") %></button>';
+                        return data2;
+                    }
+                  },
+                  { data: 'lastUpdate'},                  
+                  {
+                    "targets": -1,
+                    "render": function ( data, type, full, meta ) 
+                    {
+                      data3 = '<div class="btn-group">\
+                                  <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><%= __("Action") %>\
+                                  <span class="caret"></span></button>\
+                                    <ul class="dropdown-menu" role="menu" style="min-width:90px">\
+                                      <li><a href="/customer/update/'+ full.id +'" id="modify_button" class="modifyButton"><%= __("Modify") %></a></li>\
+                                      <li><a href="#" class="deleteButton" id="'+ full.id +'"><%= __("Delete") %></a></li>\
+                                    </ul>\
+                                  </div>';
+                      return data3;
+                    }
+                  }
+               ]
+            });
+
+       });
+
+    
+
+      $('#customerTable').on('draw.dt', function () {
+        $('[data-toggle="popover"]').popover({
+            container: 'body'
+          });
+      });
+
+
+        $('#customerTable').on('click', '.deleteButton', function() 
+        {
+          val = $(this).attr('id');
+          //handler for the delete button
+          if (confirm("Are you sure you want to delete this?")) 
+          {
+            $.ajax({                  
+              "type": "DELETE",
+              "url": '/customer/delete/'+val,
+              "success": function () {
+                location.reload(true);
+              },
+              "error": function (jqXHR, textStatus, errorThrown) {
+                 $("#modalMsg").text("Unable to delete, contact admin");
+                 $("#myModal").modal();
+              }
+            });
+         } // if             
+      }); // table on
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('This') %> <%= __('Month') %></title>
+
+    <% include ../partials/header %>  
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('This') + ' ' + __('Month')}) %>
+
+      <div id="page-wrapper" style="padding-top: 5px;">
+
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#mainTab"><%= __('Main') %></a></li>
+          <li><a data-toggle="tab" href="#productTab"><%= __('Product') %></a></li>
+          <li><a data-toggle="tab" href="#orderTab"><%= __('Order') %></a></li>
+          <li><a data-toggle="tab" href="#transTab"><%= __('Transaction') %></a></li>
+          <li><a data-toggle="tab" href="#expenseTab"><%= __('Expense') %></a></li>
+        </ul>
+<!-- ================================================================================================= MAIN -->
+        <div class="tab-content">
+          <div id="mainTab" class="tab-pane fade in active" style="padding-top:5px;">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading"> 
+                      <h4 style="padding-bottom: 0px; margin-bottom: 0px;"><%= __('Product') %></h4>
+                      
+                  </div>
+                  <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                      <table class="table table-striped table-bordered table-hover" id="mainProductTable" width="100%" >
+                        <thead>
+                          <tr>
+                            <th><%= __('Sold') %></th>
+                            <th><%= __('Value') %></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><div class="alert alert-info" id="mainProductAllTotal" style="width:200px; display:inline-block; margin-bottom: 0px; padding-top: 2px; padding-bottom: 2px;"></div></td>
+                            <td><div class="alert alert-info" id="mainProductAllTotalValue" style="width:200px; display:inline-block; margin-bottom: 0px; padding-top: 2px; padding-bottom: 2px;"></div>  </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>      
+        
+          </div>
+
+<!-- ================================================================================================= PRODUCT -->
+          <div id="productTab" class="tab-pane fade" style="padding-top:5px;">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <%= __('Total') %> <%= __('Sold') %>:
+                      <div class="alert alert-info" id="productAllTotal" style="width:200px; display:inline-block; margin-bottom: 0px; padding-top: 2px; padding-bottom: 2px;"></div>
+                      <%= __('Total') %> <%= __('Value') %>:
+                      <div class="alert alert-info" id="productAllTotalValue" style="width:200px; display:inline-block; margin-bottom: 0px; padding-top: 2px; padding-bottom: 2px;"></div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                      <table class="table table-striped table-bordered table-hover" id="productTable" width="100%" >
+                        <thead>
+                          <tr>
+                            <th style="width:20px;"></th>
+                            <th><%= __('Code') %> </th>
+                            <th><%= __('Name') %></th>
+                            <th><%= __('Type') %></th>
+                            <th><%= __('Sold') %></th>
+                            <th><%= __('Value') %></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <%= __('Type') %>:
+                  </div>
+                  <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                      <table class="table table-striped table-bordered table-hover" id="productTypeTable" width="100%" >
+                        <thead>
+                          <tr>
+                            <th style="width:20px;"></th>
+                            <th><%= __('Type') %></th>
+                            <th><%= __('Sold') %></th>
+                            <th><%= __('Value') %></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+
+<!-- ================================================================================================= ORDER -->
+          <div id="orderTab" class="tab-pane fade" style="padding-top:5px;">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading"> 
+                      <h4 style="padding-bottom: 0px; margin-bottom: 0px;"><%= __('Order') %></h4>                      
+                  </div>
+                  <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                      <table class="table table-striped table-bordered table-hover" id="orderTable" width="100%" >
+                        <thead>
+                          <tr>
+                            <th style="width:20px;"></th>
+                            <th><%= __('Type') %></th>
+                            <th><%= __('Value') %></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<!-- ================================================================================================= PRODUCT -->
+          <div id="transTab" class="tab-pane fade" style="padding-top:5px;">
+            <h3>Menu 1</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+
+
+<!-- ================================================================================================= EXPENSE -->
+          <div id="expenseTab" class="tab-pane fade" style="padding-top:5px;">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <%= __('Total') %>:
+                  </div>
+                  <div class="panel-body">
+                  <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="expenseTable" width="100%" >
+                      <thead>
+                        <tr>
+                          <th style="width:20px;"></th>
+                          <th><%= __('Type') %> </th>                                                  
+                          <th><%= __('Total') %></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>    
+
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>    <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+    <script>
+      $(document).ready( function () 
+      {
+        var allExpense = [];
+        var allProduct = [];
+        var allOrder = [];
+        var allTrans = [];
+
+        var expenseTable;
+        var productTable;
+        var productTypeTable;
+        var orderTable;
+        var transTable;
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+          $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust().draw();
+        });
+
+  
+
+//======================================================================================================================
+//                                                                                                           EXPENSE
+//======================================================================================================================        
+        $.get("/report/thisMonth/GetAllExpense", function(data, status) 
+        {
+          allExpense = data;
+          console.log("status: " + status);
+
+          expenseTable = $('#expenseTable').DataTable({
+              <% include ../partials/datatables_lang %>,
+              "ajax": {
+                  "url": '/report/thisMonth/GetExpenseTotal',
+                  "dataSrc": function (json) {                    
+                     return json;
+                  }
+              },
+              columns: [
+                   {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+                { data: 
+                  <% if (user.lang == 'en') { %>
+                  'nameEn'
+                  <% } %>
+                  <% if (user.lang == 'cn') { %>
+                  'nameCn'
+                  <% } %>
+                  <% if (user.lang == 'vn') { %>
+                  'nameVn'
+                  <% } %>   
+
+                }, 
+                { data: 'total'} 
+                  
+              ]
+          }); // data table
+
+        });  // get
+
+        $('#expenseTab tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = expenseTable.row( tr );
+   
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              var markup = '<table class="table table-striped table-bordered table-hover" width="100%" >\
+                      <thead> <tr>\
+                         <th style="width:110px;"><%= __("Date") %></th>\
+                         <th><%= __("Id") %> </th>\
+                          <th><%= __("Value") %></th>\
+                            <th><%= __("Note") %></th>\
+                        </tr>  </thead> <tbody>';
+
+              for(var i = 0; i < allExpense.length; i++)
+              {
+                if(allExpense[i].expenseType == row.data().expenseType)
+                {
+                  markup +='<tr> \
+                              <td>'+ allExpense[i].date +' </td>\
+                              <td>'+ allExpense[i].referenceId +' </td>\
+                              <td>'+ allExpense[i].value +' </td>\
+                              <td>'+ allExpense[i].note +' </td>\
+                            </tr>';
+                }
+              }
+
+              markup +='</tbody></table>';
+              row.child( markup ).show();
+              tr.addClass('shown');
+          }
+        });
+
+//======================================================================================================================
+//                                                                                                            PRODUCT
+//======================================================================================================================
+        $.get("/report/thisMonth/GetAllProduct", function(data, status) 
+        {
+          allProduct = data;
+          
+          productTable = $('#productTable').DataTable({
+              <% include ../partials/datatables_lang %>,
+              "ajax": {
+                  "url": '/report/thisMonth/GetProductSoldTotal',
+                  "dataSrc": function (json) {
+                    $('#productAllTotal').html(json[0].allTotal);
+                    $('#productAllTotalValue').html(json[0].valueTotal.toLocaleString());
+                    $('#mainProductAllTotal').html(json[0].allTotal);
+                    $('#mainProductAllTotalValue').html(json[0].valueTotal.toLocaleString());
+                     return json;
+                  }
+              },
+              columns: [
+                   {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+                
+                { data: 'code' }, 
+                { data: 'productName'},
+                { data:
+                  <% if (user.lang == 'en') { %>
+                    'nameEn'
+                  <% } %>
+                  <% if (user.lang == 'cn') { %>
+                    'nameCn'
+                  <% } %>
+                  <% if (user.lang == 'vn') { %>
+                    'nameVn'
+                  <% } %>
+                },
+                { data: 'totalSold'},
+                { data: 'value'}   
+              ]
+          }); // data table
+
+          productTypeTable = $('#productTypeTable').DataTable({
+              <% include ../partials/datatables_lang %>,
+              "ajax": {
+                  "url": '/report/thisMonth/GetProductTotalByType',
+                  "dataSrc": function (json) {
+                     return json;
+                  }
+              },
+              columns: [
+                   {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+                },
+                { data:
+                  <% if (user.lang == 'en') { %>
+                    'nameEn'
+                  <% } %>
+                  <% if (user.lang == 'cn') { %>
+                    'nameCn'
+                  <% } %>
+                  <% if (user.lang == 'vn') { %>
+                    'nameVn'
+                  <% } %>
+                },
+                { data: 'totalSold'},
+                { data: 'value'}   
+              ]
+          }); // data table
+
+        });  // get
+
+        $('#productTable tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = productTable.row( tr );
+   
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              var markup = '<table class="table table-striped table-bordered table-hover" width="100%" >\
+                      <thead> <tr>\
+                        <th style="width:110px;"><%= __("Date") %></th>\
+                        <th><%= __("Customer") %> </th>\
+                        <th><%= __("Id") %> </th>\
+                        <th><%= __("Total") %></th>\
+                        <th><%= __("Value") %></th>\
+                        </tr>  </thead> <tbody>';
+
+                        console.log(" code: " + row.data().code);
+              for(var i = 0; i < allProduct.length; i++)
+              {
+                if(allProduct[i].code == row.data().code)
+                {
+                  t = Number(allProduct[i].hmc) + Number(allProduct[i].longAn);
+                  markup +='<tr> \
+                              <td>'+ allProduct[i].date +' </td>\
+                              <td>'+ allProduct[i].customerName +' </td>\
+                              <td><a href="/invoice/viewInvoice/'+allProduct[i].invoiceId+'" target="_blank">'+allProduct[i].invoiceId+'</a> </td>\
+                              <td>'+ t +' </td>\
+                              <td>'+ allProduct[i].total +' </td>\
+                            </tr>';
+                }
+              }
+
+              markup +='</tbody></table>';
+              row.child( markup ).show();
+              tr.addClass('shown');
+          }
+        });
+
+        $('#productTypeTable tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = productTypeTable.row( tr );
+   
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              console.log("code: " + JSON.stringify(row.data()));
+              console.log(" product: " + allProduct[0].productType);
+              var markup = '<table class="table table-striped table-bordered table-hover" width="100%" >\
+                      <thead> <tr>\
+                        <th style="width:110px;"><%= __("Date") %></th>\
+                        <th><%= __("Customer") %> </th>\
+                        <th><%= __("Id") %> </th>\
+                        <th><%= __("Code") %> </th>\
+                        <th><%= __("Name") %></th>\
+                        <th><%= __("Total") %></th>\
+                        <th><%= __("Value") %></th>\
+                        </tr>  </thead> <tbody>';
+
+              for(var i = 0; i < allProduct.length; i++)
+              {
+                if(allProduct[i].productType == row.data().code)
+                {
+                  t = Number(allProduct[i].hmc) + Number(allProduct[i].longAn);
+                  markup +='<tr> \
+                              <td>'+ allProduct[i].date +' </td>\
+                              <td>'+ allProduct[i].customerName +' </td>\
+                              <td><a href="/invoice/viewInvoice/'+allProduct[i].invoiceId+'" target="_blank">'+allProduct[i].invoiceId+'</a> </td>\
+                              <td>'+allProduct[i].code+'</td>\
+                              <td>'+allProduct[i].productName+'</td>\
+                              <td>'+ t +' </td>\
+                              <td>'+ allProduct[i].total +' </td>\
+                            </tr>';
+                }
+              }
+
+              markup +='</tbody></table>';
+              row.child( markup ).show();
+              tr.addClass('shown');
+          }
+        });
+
+
+//======================================================================================================================
+//                                                                                                            ORDER
+//======================================================================================================================        
+        $.get("/report/thisMonth/GetAllOrder", function(data, status) 
+        {
+          allOrder = data;
+          
+          orderTable = $('#orderTable').DataTable({
+              <% include ../partials/datatables_lang %>,
+              "ajax": {
+                  "url": '/report/thisMonth/GetOrderTotal',
+                  "dataSrc": function (json) {
+                    //$('#productAllTotal').html(json[0].allTotal);
+                    //$('#productAllTotalValue').html(json[0].valueTotal.toLocaleString());
+                    //$('#mainProductAllTotal').html(json[0].allTotal);
+                    //$('#mainProductAllTotalValue').html(json[0].valueTotal.toLocaleString());
+                     return json;
+                  }
+              },
+              columns: [
+                {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+                },                                
+                { data:
+                  <% if (user.lang == 'en') { %>
+                    'nameEn'
+                  <% } %>
+                  <% if (user.lang == 'cn') { %>
+                    'nameCn'
+                  <% } %>
+                  <% if (user.lang == 'vn') { %>
+                    'nameVn'
+                  <% } %>
+                },
+                { data: 'total'}
+              ]
+          }); // data table
+        }); // get
+
+        $('#orderTable tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = orderTable.row( tr );
+   
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              //console.log("code: " + JSON.stringify(row.data()));
+              //console.log(" product: " + allProduct[0].productType);
+              var markup = '<table class="table table-striped table-bordered table-hover" width="100%" >\
+                      <thead> <tr>\
+                        <th style="width:110px;"><%= __("Date") %></th>\
+                        <th><%= __("Order") %> <%= __("Id") %> </th>\
+                        <th><%= __("Code") %> </th>\
+                        <th><%= __("Name") %></th>\
+                        <th><%= __("Total") %></th>\
+                        </tr>  </thead> <tbody>';
+
+              for(var i = 0; i < allOrder.length; i++)
+              {
+                if(allOrder[i].type == row.data().id)
+                {
+                  t = Number(allOrder[i].hmc) + Number(allOrder[i].longAn);
+                  markup +='<tr> \
+                              <td>'+ allOrder[i].date +' </td>\
+                              <td><a href="/order/viewOrder/'+allOrder[i].orderId+'" target="_blank">'+allOrder[i].orderId+'</a> </td>\
+                              <td>'+allOrder[i].code+'</td>\
+                              <td>'+allOrder[i].productName+'</td>\
+                              <td>'+ t +' </td>\
+                            </tr>';
+                }
+              }
+
+              markup +='</tbody></table>';
+              row.child( markup ).show();
+              tr.addClass('shown');
+          }
+        });
+
+      });// end ready
+
+
+
+      
+    </script>
+  </body>
+</html>

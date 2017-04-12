@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('View') %> <%= __('Create') %> <%= __('Invoice') %></title>
+
+    <% include ../partials/header %>
+
+    <link href="/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('View') + ' ' + __('Create') + ' ' + __('Invoice')}) %>
+      <div id="page-wrapper" style="padding-top: 15px;">      
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="panel panel-default">     
+                <div class="panel-body">
+                  <table class="table table-striped table-bordered table-hover" id="invoiceTable">
+                    <thead>
+                      <tr>
+                        <th><%= __('Date') %> </th>
+                        <th><%= __('Customer') %> </th>
+                        <th><%= __('Invoice') %> <%= __('Id') %> </th>                        
+                        <th><%= __('Total') %></th>
+                        <th><%= __('Last Update') %></th>
+                        <th><%= __('Action') %></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>                          
+                </div>
+                      <!--   /.panel-body -->
+              </div>
+                    <!-- /.panel -->
+            </div>
+                <!-- /.col-lg-12 -->
+        </div>
+            <!-- /.row -->
+      </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+    <script>
+      $(document).ready(function() 
+      {
+        //query to populate the table
+        var table = $('#invoiceTable').DataTable({
+             "lengthMenu": [
+                  [5, 10, 25, 50, -1],
+                  [5, 10, 25, 50, "All"]
+                ],
+                <% include ../partials/datatables_lang %>,            
+                  "ajax": {
+                    "url": '/invoice/getInvoiceCreate',
+                    "dataSrc": function(json) {                      
+                      return json;
+                    }
+                  },
+                  bAutoWidth: false,
+                  
+                  columns: [
+                      { data: 'date'}, 
+                      { data: 'name'},                      
+                      { 
+                        "targets": -1,
+                        "render": function(data, type, full, meta) {
+                          
+                          val = '<a href="/invoice/viewInvoice/'+full.invoiceId+'" target="_blank">'+full.invoiceId+'</a>';
+                          return val;
+                        }
+                      }, 
+                      { data: 'total'},
+                      { data: 'lastUpdate'},
+                      {
+                        "targets": -1,
+                        "render": function ( data, type, full, meta ) {
+
+                          data3 = '<div class="btn-group">\
+                                  <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><%= __("Action") %>\
+                                  <span class="caret"></span></button>\
+                                    <ul class="dropdown-menu" role="menu" style="min-width:90px">\
+                                          <li><a href="#" class="setButton" id="'+ full.invoiceId +'"><%= __("Set") %></a></li>\
+                                          <li><a href="/invoice/update/'+ full.invoiceId +'" class="modifyButton" id="'+ full.invoiceId +'"><%= __("Modify") %></a></li>\
+                                          <li><a href="#" class="deleteButton" id="'+ full.invoiceId +'"><%= __("Delete") %></a></li>\
+                                    </ul>\
+                                  </div>';
+                          return data3;
+                        }
+                      },
+                                           
+                  ]
+          });
+
+
+         
+      });
+
+
+      $('#invoiceTable').on('click', '.setButton', function() 
+      {
+        val = $(this).attr('id');
+        //handler for the set button
+        if (confirm("Are you sure you want to set this?")) 
+        {
+          $.ajax({                  
+              "type": "POST",
+              "url": '/invoice/set/'+val,
+              "success": function () {
+                  location.reload(true);
+              },
+                "error": function (jqXHR, textStatus, errorThrown) {
+                  $("#modalMsg").text("Unable to delete, contact admin");
+                  $("#myModal").modal();
+                }
+              });
+          } // if
+      }); // table on
+
+      $('#invoiceTable').on('click', '.deleteButton', function() 
+      {
+        val = $(this).attr('id');
+        //handler for the delete button
+        if (confirm("Are you sure you want to delete this?")) 
+        {
+          $.ajax({                  
+              "type": "DELETE",
+              "url": '/invoice/delete/'+val,
+              "success": function () {
+                  location.reload(true);
+              },
+                "error": function (jqXHR, textStatus, errorThrown) {
+                  $("#modalMsg").text("Unable to delete, contact admin");
+                  $("#myModal").modal();
+                }
+              });
+          } // if
+      }); // table on
+
+      </script>
+  </body>
+</html>

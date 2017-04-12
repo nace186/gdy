@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('Create') %> <%= __('Invoice') %></title>
+
+    <% include ../partials/header %>
+
+    <link href="/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('Create') + ' ' + __('Invoice')}) %>
+      
+
+      <div id="page-wrapper" style="padding-top: 5px;">
+        
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  Set Customer
+              </div>
+              <!-- /.panel-heading -->
+              <div class="panel-body">                            
+                <table class="table table-striped table-bordered table-hover" id="selectCustomerTable">
+                  <thead>
+                    <tr>
+                      <th><%= __('MS') %> </th>
+                      <th><%= __('Code') %> </th>
+                      <th><%= __('Name') %> </th>
+                      <th><%= __('Admin') %> </th>
+                      <th><%= __('Detail') %> </th>
+                      <th><%= __('Set') %></th> 
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>                                 
+              </div><!-- /.panel-body -->
+            </div><!-- /.panel -->
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                           
+              </div>
+              <div class="panel-body">
+                        
+                <table class="table table-striped table-bordered table-hover" id="selectProductTable">
+                  <thead>
+                    <tr>
+                      <th><%= __('Code') %> </th>
+                      <th><%= __('Name') %> </th>                      
+                      <th><%= __('Unit') %> | <%= __('Exchange') %></th>
+                      <th><%= __('Type') %> </th>
+                      <th><%= __('Manufacturer') %> </th>
+                      <th><%= __('Price') %> </th> 
+                      <th><%= __('Inventory') %> (<%= __('Pending') %>)</th>                  
+                      <th><%= __('Action') %></th> 
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>                                                    
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <label><%= __('Note') %> : </label>
+                  <div id="note" name="note">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+            
+         <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <h2 style="margin-top: 0px;"><%= __('Invoice') %></h2>
+             
+                    <form role="form" method="post" autocomplete="off">
+
+                      <div class="form-group form-inline">
+                        <label><%= __('Date') %> <%= __('Order') %>:</label>
+                          <div class='input-group date' id='dateOrder'>
+                            <input type='text' class="form-control" name="date" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                            <label>  <%= __('Customer') %><%= __('Name') %> :</label>
+                            <input class="form-control" name="customerName" id="customerName" type="text" readonly>
+                            <input class="form-control" name="customerId" id="customerId" type="hidden">
+                      </div>
+
+
+                      <table class="table table-hover" id="productsTable">
+                        <thead>
+                          <tr>
+                            <th><%= __('Delete') %> </th>
+                            <th><%= __('Name') %> </th>
+                            <th><%= __('Exchange') %> </th>
+                            <th><%= __('Inventory') %> (<%= __('Pending') %>)</th> 
+                            <th style="width:100px;"><%= __('hmc') %> <%= __('Unit2') %> </th>
+                            <th style="width:100px;"><%= __('Long An') %> <%= __('Unit2') %> </th>
+                            <th style="width:110px;"><%= __('Total') %> <%= __('Unit1') %> </th>
+                            <th style="width:150px;"><%= __('Price') %> / <%= __('Unit1') %></th>                             
+                            <th style="width:150px;"><%= __('Total') %> <i class="fa fa-arrow-right fa-fw"></i></th> 
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+
+
+
+                      <table class="table table-hover" id="productTotalTable">
+                        <thead>
+                          <tr>
+                            <th style="text-align: right;"><%= __('Products') %> <%= __('Total') %></th>
+                            <th style="width:150px;"><input class="form-control calc2" name="productTotal" type="number" step="1" readonly > </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+
+
+                      
+                      <table class="table table-hover" id="prevTable">
+                        <thead>
+                          <tr>
+                            <th style="text-align: right;"><%= __('Previous') %> <%= __('Balance') %></th>
+                            <th style="width:150px;"><input class="form-control calc2" name="previous" type="number" step="1" readonly > </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+
+
+
+                      <table class="table table-hover" id="transTable">
+                        <thead>
+                          <tr>
+                            <th style="text-align: right;"><%= __('Transaction') %> </th>
+                            <th style="width:150px;"> </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+
+
+
+                      <table class="table table-hover" id="totalTable">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th style="width:100px;"># <%= __('Unit2') %> </th>
+                            <th style="width:100px;"><%= __('Total') %> <%= __('Unit1') %> </th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="3" style="text-align: right;"><label><%= __('Total') %></label> <i class="fa fa-arrow-down fa-fw"></i></td> </td>
+                            <td  style="width:100px;"><input class="form-control" name="totalU2" type="number" step="1" readonly></td>
+                            <td  style="width:110px;"><input class="form-control" name="totalU1" type="number" step="1" readonly></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"><input class="form-control" name="total" type="number" step="1" readonly> </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table class="table table-hover">
+                        <tr>
+                          <td>
+                          <input class="form-control" name="productsArr" id="productsArr" type="hidden">
+                          <input class="form-control" name="transactsArr" id="transactsArr" type="hidden">
+                          <input class="form-control" name="transactTotal" id="transactTotal" type="hidden">
+                          <input type="submit" target="_blank" onclick="this.form.target='_blank';this.form.action='/invoice/preview'" method="post" class="btn btn-lg btn-success btn-block" value="<%= __('Preview') %>"/>
+                          </td>
+                          <td>
+                            <input type="submit" onclick="this.form.action='/invoice/add'" class="btn btn-lg btn-success btn-block" value="<%= __('Create') %> <%= __('Invoice') %>"/>
+                          </td>
+                        </tr>
+                      </table>
+                    </form>
+
+
+                    <% include ../partials/modal_error %>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+
+    <script>
+
+      $(document).ready(function () 
+      {
+        <%  if(locals.success) { %>
+          $("#myModalLabel").text("<%= __('Success') %>");  
+          $("#modalMsg").text("");
+          $("#myModal").modal();
+
+        <% } %>
+
+          var count = 1;          
+          var customers;
+          var products;
+          var transType;
+          var productsArray = [];
+          var transArray = [];
+
+          $.get("/transaction/getType", function(data, status) 
+          {
+            transType = data;
+          });
+
+          //query to populate the table
+          var table = $('#selectCustomerTable').DataTable({
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            <% include ../partials/datatables_lang %>,                
+            "ajax": {
+              "url": '/customer/getCustomers',
+              "dataSrc": function (json) {
+                customers = json;
+                 return json;
+              }
+            },
+            bAutoWidth: false ,
+            columns: [
+                { data: 'ms'},
+                { data: 'code' },
+                { data: 'name' },
+                { data: 'admin' },
+                {
+                  "targets": -1,
+                  "render": function ( data, type, full, meta ) {
+
+                   var content = "<%= __('ShortHand') %> : "+full.shortHand +" <BR/>\
+                                  <%= __('Address') %> : "+full.address +" <BR/>  \
+                                 <%= __('Area') %> : "+full.area +" <BR/>  \
+                                 <%= __('City') %> : "+full.city +" <BR/>  \
+                                 <%= __('Phone') %> : "+full.phone +" <BR/>  \
+                                 <%= __('Contact') %> : "+full.contact +" <BR/>  \
+                   ";
+                   var data2 = '<button data-toggle="popover" data-html="true" data-trigger="click" data-placement="bottom" class="btn btn-primary btn-xs detailBtn" title="Detail" data-content="' +content +'"><%= __("Detail") %></button>';
+                    return data2;
+                  }
+                },
+                {
+                  "targets": -1,                    
+                  "render": function ( data, type, full, meta ) {
+                      data2 = "<button id=\"set_button\" class=\"btn btn-danger btn-xs setButton\" value=\""+ full.id +"\" ><%= __('Set') %></button>";
+                      return data2;
+                  }
+                }
+             ]
+          });
+
+
+            //query to populate the table
+          $('#selectProductTable').DataTable({
+            "lengthMenu": [
+                  [5, 10, 25, 50, -1],
+                  [5, 10, 25, 50, "All"]
+                ],
+            <% include ../partials/datatables_lang %>,            
+            "ajax": {
+              "url": '/product/getProducts',
+                "dataSrc": function (json) {
+                    products = json;                    
+                   return json;
+                }
+             },
+               
+             bAutoWidth: false ,
+             columns: [
+                { data: 'productCode' },
+                { data: 'productName' },
+                {
+                  "targets": -1,
+                  "render": function ( data, type, full, meta ) {
+                      data2 = full.unit2 + " | " + full.exchange + " " + full.unit1;
+                      return data2;
+                  }
+                },
+                <% if (user.lang == 'en') { %>
+                { data: 'nameEn'},
+                 <% } %>
+                <% if (user.lang == 'cn') { %>
+                { data: 'nameCn'},
+                <% } %>
+                <% if (user.lang == 'vn') { %>
+                { data: 'nameVn'},
+                <% } %>
+                { data: 'manuName' },
+                { data: 'price'},
+              //  {data: 'hmc'},
+              //  { data: 'longAn'},
+                {
+                  "targets": -1,                    
+                  "render": function ( data, type, full, meta ) {
+                      var total = full.hmc + full.longAn;
+                      var total2 = full.hmcPreOrder+full.longAnPreOrder;
+                      var data2 ='<strong>hmc:'+full.hmc+'</strong> ('+full.hmcPreOrder+') <strong>longAn:'+full.longAn+'</strong> ('+full.longAnPreOrder+')  <strong>T : ' + total + '</strong> ('+total2+')';
+
+                      return data2;
+                  }
+                },
+                {
+                  "targets": -1,                    
+                  "render": function ( data, type, full, meta ) {
+                      data2 = "<button id=\"set_button\" class=\"btn btn-primary btn-xs setButton\" value=\""+ full.productId +"\" ><%= __('Set') %></button>";
+                      return data2;
+                  }
+                }
+             ]
+          });
+
+
+          $(function () {
+             var dateNow = new Date();
+             $('#dateOrder').datetimepicker({
+                locale: 'vi',     
+                minDate:new Date(),           
+                 defaultDate:dateNow
+             });
+          });
+
+
+          $('#selectCustomerTable').on('click', '.setButton', function() 
+          {
+            for( var i = 0; i < customers.length; i++)
+            {       
+              if(this.value == customers[i].id ){
+                  document.getElementById("customerName").value = customers[i].name;
+                  document.getElementById("customerId").value = customers[i].id;
+                  document.getElementById("note").innerHTML  = customers[i].remarks;
+
+                  $.get("/transaction/getCustomerLatest/" + this.value, function(data, status) 
+                  {
+                    $("#transTable tbody").empty();
+
+                    var prev = 0;
+                    var type;
+                    if (data.length > 0) 
+                    {
+                      //emptying array
+                      transArray = [];
+
+                      // loop through all the transaction for this customer that's hasn't been informed
+                      for( var j = 0; j < data.length; j++)
+                      {
+                        // get the largest previous balance
+                        if(data[j]['informed'] == 0 && data[j]['previousBalance'] > prev)
+                          prev = data[j]['previousBalance'];
+
+                        // display the transaction type
+                        type = data[j]['transactionType'];
+                        for( var k = 0; k < transType.length; k++)
+                        {
+                          if( transType[k]['id'] == type )
+                          {
+                            var markup = '<tr> \
+                                            <td  style="text-align: right;">'+ 
+                                            <% if (user.lang == 'en') { %>
+                                                transType[k]['nameEn']
+                                            <% } %>
+                                            <% if (user.lang == 'cn') { %>
+                                                transType[k]['nameCn']
+                                            <% } %>
+                                            <% if (user.lang == 'vn') { %>
+                                                transType[k]['nameVn']
+                                            <% } %>
+                                            + '</td> \
+                                            <td><input class="form-control calc2" name="trans['+j+']" value="'+data[j]["value"] +'" type="number" readonly ></td>';
+                            $("#transTable tbody").append(markup);
+
+                            // save the transaction
+                            transArray.push(data[j]["id"]);
+                          }
+                        } // for type
+                      }                    
+                    }
+                    else 
+                    {
+                      if(data.informed == 1)
+                        prev = data.balance;
+                    }
+
+                    // set the previous balance element and recalculate
+                    document.getElementsByName('previous')[0].value = prev;
+                    // set the transactsArray of a form
+                    document.getElementsByName('transactsArr')[0].value = transArray;
+                    CalculateTotal();
+                  }); //get
+
+                  break;
+              }
+            }
+          }); 
+
+
+          $('#selectProductTable').on('click', '.setButton', function() 
+          {
+            var index = productsArray.indexOf(Number(this.value));
+            if(index == -1)
+            {
+              for( var i = 0; i < products.length; i++)
+              {       
+                if(this.value == products[i].productId )
+                {
+                  var total = products[i].hmc + products[i].longAn;
+                  var total2 = products[i].hmcPreOrder+products[i].longAnPreOrder;
+                  var data2 ='<strong>hmc:'+products[i].hmc+'</strong> ('+products[i].hmcPreOrder+') <strong>longAn:'+products[i].longAn+'</strong> ('+products[i].longAnPreOrder+')  <strong>T :' + total + '</strong> ('+total2+')';
+
+
+
+                  var price = '<select class="form-control calc" name="products['+products[i].productId+'][price]">';
+                  var priceArray = products[i].price.split(',');
+                  for( var j =0; j < priceArray.length; j++)
+                  {
+                    price += '<option value="'+priceArray[j]+'">'+priceArray[j]+'</option>';
+                  }
+
+                  price += '</select>';
+
+                  var markup = '<tr> \
+                                  <td><button id="delete_button" type="button" class="btn btn-primary btn-xs deleteButton">delete</button>\
+                                  </td>\
+                                  <td>'+ products[i].productName + '</td> \
+                                  <td>' + products[i].unit2 + " / " + products[i].exchange + " " + products[i].unit1 + '\
+                                    <input type="hidden" name="products['+products[i].productId+'][exchange]" value="'+products[i].exchange+'"  >\
+                                    <input type="hidden" class="productId" value="'+products[i].productId+'"  >\
+                                    <input type="hidden" name="products['+products[i].productId+'][type]" value="'+products[i].type+'"  >\
+                                  </td>\
+                                  <td>'+ data2+'</td>\
+                                  <td><input class="form-control calc" name="products['+products[i].productId+'][hmc][unit2]" value="0" type="number" min="0" step="0.01" ></td>\
+                                  <td><input class="form-control calc" name="products['+products[i].productId+'][longAn][unit2]" value="0" min="0" type="number" step="0.01" ></td>\
+                                  <td><input class="form-control calc" name="products['+products[i].productId+'][tUnit1]" value="0" type="number" readonly ></td>\
+                                  <td>'+price+'</td>\
+                                  <td><input class="form-control" name="products['+products[i].productId+'][total]" value="0" type="number" readonly></td>\
+                                </tr>';
+                  $("#productsTable tbody").append(markup);
+                               
+                  productsArray.push(Number(products[i].productId));
+                  CalculateTotal();
+                  break;
+                }
+              }
+            }
+          });
+
+
+          $('#productsTable').on('click', '.deleteButton', function() 
+          {    
+            console.log($(this).parents('tr').find('.productId').val());
+            var index = productsArray.indexOf(Number($(this).parents('tr').find('.productId').val()));
+            console.log("index:" + index);
+            if(index != -1){
+              console.log("splice");
+                          productsArray.splice( index, 1 );}
+
+             $(this).parents('tr').remove();
+             CalculateTotal();  
+          });
+
+
+
+
+          $('#productsTable').on('change', '.calc', function() 
+          {
+            var productId = $(this).parents('tr').find('.productId').val();
+            var exchange = Number(document.getElementsByName('products['+productId+'][exchange]')[0].value);
+            var hmcUnit2 = Number(document.getElementsByName('products['+productId+'][hmc][unit2]')[0].value);
+            var longAnUnit2 = Number(document.getElementsByName('products['+productId+'][longAn][unit2]')[0].value);
+
+
+            var price = Number(document.getElementsByName('products['+productId+'][price]')[0].value);
+
+            document.getElementsByName('products['+productId+'][tUnit1]')[0].value = Math.ceil(exchange * (hmcUnit2 + longAnUnit2) );
+            document.getElementsByName('products['+productId+'][total]')[0].value =  (Math.ceil(exchange * (hmcUnit2 + longAnUnit2)) * price); 
+
+            CalculateTotal();
+
+          });
+
+
+
+
+         function CalculateTotal() 
+         {
+            var transact = 0;
+            var count = 0;
+            var productsTotal = 0;
+            var total = 0;
+            var totalU1 = 0;
+            var totalU2 = 0;
+
+            var previous = Number(document.getElementsByName('previous')[0].value);            
+            
+            while(document.getElementsByName('trans['+count+']').length)
+            {
+              transact = transact + Number(document.getElementsByName('trans['+count+']')[0].value);
+              count++;
+            }
+
+            count = 0;
+
+            for(var i = 0; i < productsArray.length; i++)
+            {
+              productsTotal = Number(productsTotal) + Number(document.getElementsByName('products['+productsArray[i]+'][total]')[0].value);
+              totalU1 = Number(totalU1) + Number(document.getElementsByName('products['+productsArray[i]+'][tUnit1]')[0].value);
+              totalU2 = Number(totalU2) + Number(document.getElementsByName('products['+productsArray[i]+'][hmc][unit2]')[0].value) +
+              Number(document.getElementsByName('products['+productsArray[i]+'][longAn][unit2]')[0].value);
+            }
+
+            total = transact + previous + productsTotal;
+
+            document.getElementsByName('productTotal')[0].value = productsTotal;
+            document.getElementsByName('transactTotal')[0].value = transact;
+            document.getElementsByName('total')[0].value = total;
+            document.getElementsByName('totalU1')[0].value = totalU1;
+            document.getElementsByName('totalU2')[0].value = totalU2;
+            document.getElementsByName('productsArr')[0].value = productsArray;
+            
+          } // calculate total
+      });
+
+
+
+
+      $('#selectCustomerTable').on('draw.dt', function () {
+        $('[data-toggle="popover"]').popover({
+            container: 'body'
+        });
+      });
+
+      $('#selectProductTable').on('draw.dt', function () {
+                    $('[data-toggle="tooltip"]').tooltip();
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%=  __('Create') %> <%= __('Expense') %></title>
+    <% include ../partials/header %>
+    <link href="/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <!-- Navigation -->
+      <%- include("../partials/nav",{title: __('Create') + ' ' + __('Expense')}) %>
+      <div id="page-wrapper" style="padding-top: 15px;">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h2><%= __('Create') %> <%= __('Expense') %></h2>
+                  
+                  <form role="form" action="/expense/add" method="post" id="expense">
+                    <table class="table table-hover" id="expenseTable">
+                      <tr>
+                        <td>
+                          <div class="form-group form-inline">
+                            <label><%= __('Date') %>:</label>
+                            <div class='input-group date' id='dateOrder'>
+                              <input type='text' class="form-control" name="date" />
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: right;"><label> <%= __('Expense') %>  <%= __('Type') %> :</label></td>
+                        <td>
+                          <select class="form-control" name="type">
+                            
+                            <% for ( var i = 0; i < type.length; i++ ) { %>
+                            <option value="<%= type[i].id %>">
+                            <% if (user.lang == 'en') { %>
+                              <%= type[i].nameEn %>
+                            <% } %>
+                            <% if (user.lang == 'cn') { %>
+                              <%= type[i].nameCn %>
+                            <% } %>
+                            <% if (user.lang == 'vn') { %>
+                              <%= type[i].nameVn %>
+                            <% } %>
+                            </option>
+                            <%    } %>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: right;"><label><%= __('Reference') %> <%= __('Id') %> : </label></td>
+                        <td><input class="form-control" name="referenceId" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: right;"><label><%= __('Value') %> :</label></td>
+                        <td><input class="form-control calc" name="newValue" value="0" type="number" step="1" ></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: right;"><label><%= __('Paid') %> : </label></td>
+                        <td><input class="form-control" name="paid"  type="checkbox" value="1" checked ></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: right;"><label><%= __('Note') %> : </label></td>
+                        <td><textarea  class="form-control" name="note" form="expense" style="width:80%;"></textarea></td>
+                      </tr>
+                            
+                    </table>
+                    <input type="submit" class="btn btn-lg btn-success btn-block" value="<%= __('Add') %> <%= __('Expense') %>"/>
+                  </form>   
+
+                  <% include ../partials/modal_error %>
+
+                </div>
+              </div>
+            </div>
+          </div>
+                <!-- /.row -->
+        </div>
+              <!-- /#page-wrapper -->
+      </div>
+            <!-- /#wrapper -->
+            
+      <% include ../partials/js %>
+
+    <script>
+      $(document).ready(function() {
+
+        <%  if(locals.success) { %>
+          $("#myModalLabel").text("<%= __('Success') %>");  
+          $("#modalMsg").text("");
+          $("#myModal").modal();
+
+        <% } %>
+
+          var count = 1;
+          var customers;
+          var products;
+              //query to populate the table
+        
+          $(function() {
+                var dateNow = new Date();
+                $('#dateOrder').datetimepicker({
+                    locale: 'vi',
+                    minDate:new Date(), 
+                  defaultDate: dateNow
+                });
+              });
+
+              
+              $('form').on('change', '.calc', function() {
+                document.getElementsByName('balance')[0].value = Number(document.getElementsByName('newValue')[0].value) + Number(document.getElementsByName('previous')[0].value);
+              });
+
+      });
+
+      $('#customerTable').on('draw.dt', function() {
+              $('[data-toggle="popover"]').popover({
+                container: 'body'
+              });
+      });
+      
+      $('#productTable').on('draw.dt', function() {
+              $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+  </body>
+</html>

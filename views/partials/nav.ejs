@@ -1,0 +1,138 @@
+
+
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+            <div class="navbar-header" style="display:inline-block;">
+                
+               <span  class="navbar-brand" style="font-size:15px;"> <%= __('Change Lang') %> : <a href="/?lang=vn">vn</a> <a href="/?lang=cn">ch</a> <a href="/?lang=en">En</a></span>
+                
+            </div>
+            <span  class="navbar-brand" style="width:400px;font-size:30px;color:#FFA500"><strong> <%- title %></strong> </span>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i><%= __('Logout') %> </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                            <a href="/report/thisMonth"><i class="fa fa-dashboard fa-fw"></i> <%= __('This') %></a>
+                        </li>
+
+                        
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> <%= __('Home') %></a>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-list fa-fw"></i> <%= __('Invoice') %><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/invoice/create"><%= __('Create') %> <%= __('Invoice') %></a>
+                                </li>
+                                <li>
+                                    <a href="/invoice/viewCreate"><%= __('View') %> <%= __('Invoice') %></a>
+                                </li>
+                                <li>
+                                    <a href="/invoice/viewSold"><%= __('View') %> <%= __('Sold') %></a>
+                                </li>                                
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-money fa-fw"></i> <%= __('Transaction') %><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/transaction/create"><%= __('Create') %> <%= __('Transaction') %></a>
+                                </li>
+                                <li>
+                                    <a href="/transaction/display"><%= __('View') %> <%= __('Transaction') %></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-money fa-fw"></i> <%= __('Expense') %><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Expense/create"><%= __('Create') %> <%= __('Expense') %></a>
+                                </li>
+                                <li>
+                                    <a href="/Expense/display"><%= __('View') %> <%= __('Expense') %></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-list fa-fw"></i> <%= __('Order') %><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/order/create"> <%= __('Create') %> <%= __('Order') %></a>
+                                </li>
+                                <li>
+                                    <a href="/order/cReturn"> <%= __('Create') %> <%= __('Return') %></a>
+                                </li>
+                                <li>
+                                    <a href="/order/display"><%= __('View') %> <%= __('Order') %></a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    
+                        <% if (user.level > 0) { %>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i><%= __('Modify') %> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/product/display"><%= __('Update') %> <%= __('Products') %></a>
+                                </li>
+                                <li>
+                                    <a href="/customer/display"><%= __('Update') %> <%= __('Customer') %></a>
+                                </li>
+                                <li>
+                                    <a href="/man/display"><%= __('Update') %> <%= __('Manufacturer') %></a>
+                                </li>
+                                <li>
+                                    <a href="/type/display"><%= __('Update') %> <%= __('Type') %></a>
+                                </li>
+                                <li>
+                                    <a href="/expense/typeDisplay"><%= __('Update') %> <%= __('Expense') %> <%= __('Type') %></a>
+                                </li>
+                                
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <% } %>
+
+
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+      

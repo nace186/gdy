@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= __('Update') %> <%= __('Inventory') %></title>
+
+    <% include ../partials/header %>
+  </head>
+
+  <body>
+    <div id="wrapper" style="padding-top: 5px;">
+      <%- include("../partials/nav",{title: __('Update') + ' ' + __('Inventory')}) %>
+
+        <div id="page-wrapper" style="padding-top: 15px;">
+          <div class="row">
+            <div class="col-md-7 col-md-offset-2">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                            
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                  <form role="form" action="/product/updateInventory/<%= row.productId %>" method="post">
+                                
+                    <table class="table table-hover" id="productTable">
+                                    <tr>
+                                        <td>
+                                            <div class="form-group form-inline">
+                                                <label><%= __('Code') %> : </label> <%= row.productCode %>
+                                            </div>         
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-inline">
+                                                <label><%= __('Name') %> : </label> <%= row.productName %>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group form-inline ">
+                                                <label><%= __('HMC') %> :</label>
+                                                <input class="form-control" name="hmc" value="<%= row.hmc %>" type="number" step="0.01" >
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group form-inline">
+                                                <label><%= __('LongAn') %> :</label>
+                                                <input class="form-control" name="longAn" value="<%= row.longAn %>" type="number" step="0.01" >
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                    <input type="submit" class="btn btn-lg btn-success btn-block" value="<%= __('Submit') %>"/>
+                  </form>                     
+                            
+                </div>
+              </div>
+          </div>
+        </div> <!-- /.row -->
+      </div> <!-- /#page-wrapper -->
+    </div> <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+  </body>
+</html>

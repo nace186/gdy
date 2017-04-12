@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title> <%= name %> <%= __('Transaction') %></title>
+    <% include ../partials/header %>
+  </head>
+
+  <body>
+    <div style="padding: 5px;margin: 5px;">
+      <div class="row" style="padding-top: 5px;">
+         <div class="col-lg-12">
+           <div class="panel panel-default">
+              <div class="panel-heading">
+                   <h1> <%= name %> <%= __('Transaction') %></h1>
+              </div>
+              <!-- /.panel-heading -->
+              <div class="panel-body">
+                            
+                <table class="table table-striped table-bordered table-hover" id="transTable">
+                  <thead>
+                     <tr>
+                        <th><%= __('Date') %> </th>
+                        <th><%= __('Transaction') %> <%= __('Type') %> </th>
+                        <th><%= __('Reference') %> id</th>                        
+                        <th><%= __('Previous') %> <%= __('Balance') %>  </th>
+                        <th><%= __('Value') %></th>
+                        <th><%= __('Balance') %></th>
+                        <th><%= __('Note') %> </th>
+                        <th><%= __('Informed') %> </th>
+                        <th><%= __('Last Update') %> </th>
+                        <th><%= __('Action') %></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>                          
+              </div>
+            <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+          </div>
+           <!-- /.col-lg-12 -->
+        </div>
+            <!-- /.row -->
+    </div>
+        <!-- /#page-wrapper -->
+
+    <% include ../partials/js %>
+    <script>
+      $(document).ready(function() {
+  
+            //query to populate the table
+            var table = $('#transTable').DataTable({
+                  "lengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, "All"]
+                  ],
+                  <% include ../partials/datatables_lang %>,
+                  "ajax": {
+                    "url": '/Transaction/getCustTransaction/<%= id %>',
+                    "dataSrc": function(json) {
+                      customers = json;
+                      return json;
+                    }
+                  },
+                  bAutoWidth: false,                  
+                  columns: [
+                      { data: 'date'}, 
+                      { data: 
+                        <% if (user.lang == 'en') { %>
+                            'nameEn'
+                        <% } %>
+                        <% if (user.lang == 'cn') { %>
+                         'nameCn'
+                        <% } %>
+                         <% if (user.lang == 'vn') { %>
+                          'nameVn'
+                          <% } %>   
+
+                    }, 
+                      { 
+                        "targets": -1,
+                        "render": function ( data, type, full, meta ) {
+
+                          if( full.transactionType == 10) {
+                             val = '<a href="/invoice/viewInvoice/'+full.referenceId+'" target="_blank">'+full.referenceId+'</a>';
+                            return val;
+                          }
+                          
+                          return '';
+                        }
+
+                      }, 
+                      { data: 'previousBalance'},
+                      { data: 'value'},
+                      { data: 'balance'},
+                      { data: 'note'},{
+                        "targets": -1,
+                        "render": function ( data, type, full, meta ) {
+
+                          if( full.informed == 1) {
+                            return '<center><span class="glyphicon glyphicon-check"></span> </center>';
+                          }
+                          
+                          return '';
+                        }
+                      },
+                      { data: 'lastUpdate'},
+                      {
+                        "targets": -1,
+                        "render": function ( data, type, full, meta ) {
+                          data3 = '';
+                          if( full.informed == 0) 
+                          {
+                            data3 = '<div class="btn-group">\
+                                  <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><%= __("Action") %>\
+                                  <span class="caret"></span></button>\
+                                    <ul class="dropdown-menu" role="menu" style="min-width:90px">\
+                                          <li><a href="/transaction/update/'+ full.id +'" id="modify_button" class="modifyButton"><%= __("Modify") %></a></li>\
+                                          <li><a href="#" class="deleteButton" id="'+ full.id +'"><%= __("Delete") %></a></li>\
+                                    </ul>\
+                                  </div>';
+                          }
+                          return data3;
+
+                        }
+                      },    
+                    
+                  ]
+          });
+
+
+                   
+      });
+
+
+      $('#transTable').on('click', '.deleteButton', function() 
+        {
+          val = $(this).attr('id');
+          //handler for the delete button
+             if (confirm("Are you sure you want to delete this?")) 
+             {
+                $.ajax({                  
+                  "type": "DELETE",
+                  "url": '/transaction/delete/'+val,
+                  "success": function () {
+                      location.reload(true);
+                  },
+                  "error": function (jqXHR, textStatus, errorThrown) {
+                     $("#modalMsg").text("Unable to delete, contact admin");
+                     $("#myModal").modal();
+                  }
+                });
+             } // if             
+        }); // table on
+
+      </script>
+  </body>
+</html>

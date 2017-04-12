@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= __('Update') %> <%= __('Manufacturer') %> </title>
+    <% include ../partials/header %>
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('Update') + ' ' + __('Manufacturer')}) %>
+
+      <div id="page-wrapper" style="padding-top: 5px;">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                           
+              </div>
+              <!-- /.panel-heading -->
+              <div class="panel-body">
+                <form role="form" action="/man/update/<%= row.id %>" method="post">
+                  <fieldset>
+                             
+                    <div class="form-group">
+                      <label><%= __('New') %> <%= __('Code') %>:</label>
+                      <input class="form-control" value="<%= row.code %>" name="code" type="text" autofocus>
+                    </div>
+                    <div class="form-group">
+                      <label><%= __('New') %> <%= __('Name') %>:</label>
+                      <input class="form-control" value="<%= row.name %>" name="name" type="text" autofocus>
+                    </div>
+                                
+                    <input type="submit" class="btn btn-lg btn-success btn-block" value="<%= __('Submit') %>"/>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+            <!-- /.row -->
+
+      </div> <!-- /#page-wrapper -->
+    </div> <!-- /#wrapper -->
+
+    <% include ../partials/js %>
+  </body>
+</html>

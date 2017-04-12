@@ -1,0 +1,30 @@
+npm install express
+npm install express-session
+npm install passport
+npm install passport-local
+npm install moment
+
+npm install sqlite
+
+set DEBUG=myapp:* & npm start
+
+TODO:
+
+select t1.*, t2.total from yourtable t1 join 
+(select pool_name, sum(buy_price) As total from yourtable group by pool_name) t2 on t2.pool_name = t1.pool_name
+
+
+
+CREATE TABLE `Transaction` (
+	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`date`	DATETIME,
+	`customerId`	VARCHAR,
+	`transactionType`	INTEGER,
+	`transactionId`	VARCHAR,	
+	`previousBalance` REAL,	
+	`value`	REAL,
+	`balance`	REAL,
+	`note`	VARCHAR,
+	`lastUpdate`	DATETIME
+);
+

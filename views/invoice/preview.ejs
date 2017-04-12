@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <title>A4</title>
+
+  <!-- Normalize or reset CSS with your favorite library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+
+  <!-- Load paper.css for happy printing -->
+  <link href="/css/paper.css" rel="stylesheet" type="text/css">
+
+  <!-- Set page size here: A5, A4 or A3 -->
+  <!-- Set also "landscape" if you need -->
+  <style>@page { size: A4 }
+
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+      font-weight: 300;
+    }
+  </style>
+  </head>
+
+  <!-- Set "A5", "A4" or "A3" for class name -->
+  <!-- Set also "landscape" if you need -->
+<body class="A4">
+
+  <!-- Each sheet element should have the class "sheet" -->
+  <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+  <section class="sheet padding-10mm">
+
+    <!-- Write HTML just like a web page -->
+    <center><h2 style="margin-top:-20px; margin-bottom:6px; "> CÔNG TY TNHH THƯƠNG MẠI QUAN ĐỊNH VIỄN </h2></center>
+    <table style="margin-left: -10px; margin-right: -28px;">
+      <tr>
+        <td style="width:95px; font-size:14px;"><strong>Địa chỉ : </strong></td>
+        <td style="font-size:15px;">Ấp Mới 1, Xã Mỹ Hạnh Nam, Huyện Đức Hòa, Tỉnh Long An, Việt Nam<strong> |  Mã số thuế: 1101801230</strong></td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 4px; font-size:14px;"><strong>Điện Thoại: </strong> </td>
+        <td style="padding-bottom: 4px;"> 08.3877.5088 - 08.3762.0440 - 0922.226.800 | FAX: 072.3758.682 </td>
+      </tr>
+      <tr>
+        <td  style=" font-size:13px;"> <strong>Số Tài khoản: </strong> </td>
+        <td>  QUAN VĨ THẲM  188 509 169 Ngân hàng Á Châu ACB – PGD Bình Trị Đông</td>
+      </tr>
+      <tr>
+        <td style=" font-size:13px;"><strong>Số Tài khoản:</strong>     </td>
+        <td>QUAN VĨ THẲM  1903 206 139 101 Ngân hàng Agribank KCN Tân Tạo</td>
+      </tr>
+    </table>
+    <center><h3 style="margin-top:5px; margin-bottom:5px; "> BIÊN BẢN GIAO HÀNG KIÊM PHIẾU XUẤT KHO </h3></center>
+
+
+
+    <div style="width:35%; display: inline-block;vertical-align: top">
+      <table>
+      <tr>
+        <td> <span style="font-size:14px;"><strong>Bên A ( BÊN GiAO):</strong> </span> <span style="font-size:14px;">CÔNG TY TNHH THƯƠNG MẠI QUAN ĐỊNH VIỄN</span></td>
+      </tr>
+      <tr>
+        <td><strong>Đại diện :</strong> Phòng kinh doanh 森</td>
+      </tr>
+    </table>
+    </div>
+
+
+    <div style="width:60%; display: inline-block;vertical-align: top">
+      <table>
+      <tr>
+        <td> <span style="font-size:14px;"><strong>Bên B (BÊN NHẬN) :</strong> </span><%= row.name %></td>
+      </tr>
+      <tr>
+        <td><span style="font-size:14px;"><strong>Địa chỉ : </strong></span><%= row.address %></td>
+      </tr>
+      <tr>
+        <td><span style="font-size:14px;"><strong>ĐT : </strong></span><%= row.phone %></td>
+      </tr>
+    </table>
+    </div>
+
+
+
+    <table style="width:100%;margin-top:5px; margin-bottom:5px; ">
+      <tr>
+      <td colspan="2"><span style="font-size:14px;"><strong>Giao hàng tại:</strong></span> </td>
+      </tr>
+      <tr>
+        <td colspan="2"><span style="font-size:14px;"><strong>Điều  1: Bên A giao, bên B nhận lô hàng với chi tiết cụ thể như sau: </strong></span></td>
+      <tr>
+        <td><strong>Số : </strong></td>
+        <td style="text-align: right;"><strong>Ngày : </strong> <%= req.body.date %></td>
+      </tr>
+    </table>
+
+
+    <table border='1' style="width:100%;margin-top:5px; margin-bottom:5px; ">
+      <thead>
+        <tr>
+          <th># </th>
+          <th>Tên hàng </th>
+          <th>ĐVT </th>
+          <th>SL </th>
+          <th>SL </th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+          <th>Ghi chú</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <%
+          var prodsArray = req.body.productsArr.split(',');
+          for(var i = 0; i < prodsArray.length; i++)
+          {
+            var totalUnit = Number(req.body['products['+prodsArray[i]+'][hmc][unit2]']) + Number(req.body['products['+prodsArray[i]+'][longAn][unit2]']);
+            %>
+            <tr>
+              <td style="padding: 2px;"><%= i+1 %></td>
+              <td style="padding: 4px;"><% for( var j=0; j < prods.length; j++)
+                     {
+                        if( prods[j].productId == prodsArray[i]) {
+                            %>
+                            
+
+                          <%= prods[j].productName %>
+
+                        <%
+                        }
+                    }
+                  %>
+              </td>
+              <td style="padding: 2px;"><% if (req.body['products['+prodsArray[i]+'][unit1]'] == 0) {
+                  %>
+                    M
+
+                  <%
+                    } else {
+                  %>
+                    T
+                  <%
+                    }
+                  %>
+              </td>
+              <td style="padding: 4px;"> <%= totalUnit %></td>
+              <td style="padding: 4px;"> <%= req.body['products['+prodsArray[i]+'][tUnit1]'] %></td>
+              <td style="padding: 4px;"> <%= Number(req.body['products['+prodsArray[i]+'][price]']).toLocaleString('vn', {useGrouping:true})  %></td>
+              <td style="padding: 4px;"> <%= Number(req.body['products['+prodsArray[i]+'][total]']).toLocaleString('vn', {useGrouping:true})  %></td>
+              <td></td>
+          <%
+          } 
+          %>
+          </tr>
+        
+
+        <tr style="border-bottom:1px dashed #494949; border-top: 2px solid;">
+          <td></td>
+          <td style="text-align: right; padding-right: 4px;"><strong>Cộng</strong></td>
+          <td></td>
+          <td style="padding: 4px;"><%= req.body.totalU2 %></td>
+          <td style="padding: 4px;"><%= req.body.totalU1 %></td>
+          <td style="padding: 4px;border-left: none; border-right: none;"></td>
+          <td style="padding: 4px; border-left:none; border-right: none;"><%= Number(req.body.productTotal).toLocaleString('vn', {useGrouping:true}) %></td>
+          <td style="padding: 4px;border-left: none; border-right: none;"></td>
+        </tr>
+        <tr style="border-bottom:1px dashed #494949;">
+          <td></td>
+          <td style="text-align: right; padding-right: 4px;"><strong>Nợ cũ</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 4px;border-left: none; border-right: none;"></td>
+          <td style="padding: 4px; border-left:none; border-right: none;""><%= Number(req.body.previous).toLocaleString('vn', {useGrouping:true}) %></td>
+          <td style="padding: 4px; border-left:none; border-right: none;"></td>
+        </tr>
+        <tr  style="border-bottom:1px dashed #494949;">
+          <td></td>
+          <td style="text-align: right; padding-right: 4px;"><strong>Số tiền phải thanh toán</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 4px;border-left: none; border-right: none;"></td>
+          <td style="padding: 4px; border-left:none; border-right: none;"><%= (Number(req.body.productTotal) +  Number(req.body.previous)).toLocaleString('vn', {useGrouping:true}) %></td>
+          <td style="padding: 4px; border-left:none; border-right: none;"></td>
+        </tr>
+        <tr style="border-bottom:1px dashed #494949;">
+          <td></td>
+          <td style="text-align: right; padding-right: 4px;"><strong>Thu tiền</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 4px;border-left: none; border-right: none;"></td>
+          <td style="padding: 4px; border-left:none; border-right: none;">
+            <%
+              var count = 0;
+              var transact = 0;
+              var total = Number(req.body.productTotal) +  Number(req.body.previous);
+              
+            while( typeof req.body['trans['+count+']'] != 'undefined')
+            {
+              transact = transact + Number(req.body['trans['+count+']']);
+              count++;
+            }
+            
+            %>
+            <%= transact.toLocaleString('vn', {useGrouping:true}) %>
+
+          </td>          
+          <td style="padding: 4px; border-left:none; border-right: none;"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td style="text-align: right; padding-right: 4px;"><strong>Còn lại</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 4px;border-left: none; border-right: none;"></td>
+          <td style="padding: 4px; border-left:none; border-right: none;">
+            
+            <%= (total + transact).toLocaleString('vn', {useGrouping:true}) %>
+          </td>
+          <td style="padding: 4px; border-left:none; border-right: none;"></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <table  style="width: 100%">
+      <tr>
+        <td colspan="3"><span style="font-size:14px;"><strong> Điều 2:</strong></span> - Hàng giao đầy đủ, nguyên đai nguyên kiện đúng chất lượng nhà sản xuất</td>
+      </tr>
+      <tr>
+        <td colspan="2"><span style="font-size:14px;"><strong> Địa chỉ chành xe : </strong></span>  <%= row.transportAddress %></td>
+        <td><span style="font-size:14px;"><strong> ĐT : </strong></span> <%= row.transportPhone %></td>
+      </tr>
+      <tr>
+        <td><span style="font-size:14px;"><strong>Số xe: </strong></span></td>
+        <td></td>
+        <td><span style="font-size:14px;"><strong>Tên xe : </strong></span></td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 6px;"><span style="font-size:14px;"><strong>Giờ xe có trong chành:</strong></span></td>
+        <td></td>
+        <td style="padding-bottom: 6px;"><span style="font-size:14px;"><strong>Giờ xe chạy:</strong></span></td>
+      </tr>
+      </table>
+      <table   style="width: 100%">
+      <tr style="border-top:1px dashed #696969;">
+        <td style="padding-top: 12px"><span style="font-size:14px;"><strong>Người lập phiếu : &#9; ________________</strong></span></td>
+        <td style="padding-top: 12px"><span style="font-size:14px;"><strong>Người nhận hàng : &#9; _______________</strong></span></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td style="padding-top: 6px"><span style="font-size:14px;"><strong>Người kiểm hàng : &#9; _______________</strong></span></td>
+        <td style="padding-top: 6px"><span style="font-size:14px;"><strong>Người giao hàng : ________________</strong></span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td style="padding-top: 6px"><span style="font-size:14px;"><strong>Thủ kho : &#9; _________________</strong></span></td>
+        <td></td>
+        <td></td>
+      
+      </tr>
+    </table>
+
+  </section>
+</body>
+
+</html>

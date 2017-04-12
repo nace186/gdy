@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= __('Update') %> <%= __('Transaction') %></title>
+
+    <% include ../partials/header %>
+  </head>
+  
+  <body>
+    <div id="wrapper">
+      <%- include("../partials/nav",{title: __('Update') + ' ' + __('Transaction')}) %>
+
+      <div id="page-wrapper">            
+        <div class="row">
+          <div class="col-md-7 col-md-offset-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                           
+              </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                          <form role="form" action="/transaction/update/<%= row.id %>" method="post">
+                                
+                                <table class="table table-hover" id="transTable">
+                                    <tr>
+                                        <td style="text-align: right;">
+                                                <label><%= __('Transaction') %> <%=  __('Type') %> : </label>
+                                        </td>
+                                        <td style="text-align: right;">
+                                           <select class="form-control" name="transactionType">
+                                              <% for ( var i = 0; i < states.length; i++ ) {
+                                              if( states[i].id > 19) {
+                                              %>
+                                              <option value="<%= states[i].id %>"  
+                                                  <% if(states[i].id == row.transactionType) { %>
+                                                      selected
+
+                                                  <% } %> 
+
+                                              >
+                                                <% if (user.lang == 'en') { %>
+                                                <%=states[i].nameEn %>
+                                                <% } %>
+                                                <% if (user.lang == 'cn') { %>
+                                                <%=states[i].nameCn %>
+                                                <% } %>
+                                                <% if (user.lang == 'vn') { %>
+                                                <%=states[i].nameVn %>
+                                                <% } %>
+
+                                              </option>
+                                              <%
+                                              }
+                                              } %>
+                                          </select>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">
+                                          <label><%= __('Transaction') %> <%= __('Id') %> : </label> 
+                                        </td>
+                                        <td>
+                                          <input class="form-control" name="referenceId" value="<%= row.referenceId %>" type="text" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">
+                                          <label><%= __('Previous') %> <%= __('Balance') %> :</label>                                                
+                                        </td>
+                                        <td>
+                                            <input class="form-control" name="previousBalance" value="<%= row.previousBalance %>" type="number" step="1" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;">
+                                          <label><%= __('Value') %>  :</label>                                                
+                                        </td>
+                                        <td>
+                                            <input class="form-control" name="value" value="<%= row.value %>" type="number" step="1" >
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                       <td style="text-align: right;">
+                                          <label><%= __('Balance') %>  :</label>                                                
+                                       </td>
+                                       <td>
+                                            <input class="form-control" name="balance" value="<%= row.balance %>" type="number" step="1" >
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td style="text-align: right;"><label><%= __('Note') %> : </label></td>
+                                       <td><input class="form-control" name="note" value="<%= row.note %>" type="text" autofocus ></td>
+                                     </tr>
+                                     <tr>
+                                       <td style="text-align: right;"><label><%= __('Informed') %> : </label></td>
+                                       <td>
+                                          
+                                          <input class="form-control" name="informed"  type="checkbox"
+                                             <% if( row.informed == 1) { %>
+                                                checked 
+                                             <% } %>
+                                             >
+                                       </td>
+                                     </tr>
+                                </table>
+                                <input type="submit" class="btn btn-lg btn-success btn-block" value="<%= __('Submit') %>"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /#page-wrapper -->
+  </div> <!-- /#wrapper -->
+
+  <% include ../partials/js %>
+
+  </body>
+</html>
